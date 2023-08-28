@@ -2,8 +2,7 @@ name: Deploy to Elastic Beanstalk
 
 on:
   pull_request:
-    types: [closed]
-  workflow_dispatch:
+    types: [opened, synchronize, reopened]
 
 jobs:
   deploy:
@@ -34,7 +33,7 @@ jobs:
       - name: Deploy to Elastic Beanstalk
         run: |
           aws elasticbeanstalk create-application-version \
-            --application-name Sample-react-demo-intro-env \
+            --application-name sample-react-demo-intro \
             --version-label ${{ github.sha }} \
             --source-bundle S3Bucket="elasticbeanstalk-ap-southeast-2-508023426757",S3Key="deploy_package.zip"
           
